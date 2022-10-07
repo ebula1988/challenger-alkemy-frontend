@@ -1,56 +1,65 @@
 import { useDispatch} from "react-redux";
 import React, {useState} from 'react'
-import { addTask } from "../../features/clients/clientsSlice";
+import { addIngreso } from "../../appstore/slices/ingresosSlice";
 import { v4 as uuid } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 
 
-const ClientsForm = () => {
+const IngresosForm = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const [clientsform, setClientsForm] = useState({
-        nombres : "",
-        dni : "",
-        telefono : ""
+    const [ingresosform, setIngresosForm] = useState({
+        id: "",
+        concepto : "",
+        monto : "",
+        fecha : ""
     })
 
     const handleChange = (e)=>{
-        setClientsForm({
-            ...clientsform,
+      setIngresosForm({
+            ...ingresosform,
             [e.target.name]: e.target.value,
           })
     }
 
    const handleSubmit = (e) =>{
     e.preventDefault();
-    console.log(clientsform)
+  
+    dispatch(addIngreso({
+      ...ingresosform,
+      id: uuid()
+    }))
+
+    navigate("/ingresos");
 
    }
 
 
   return (
     <form onSubmit={handleSubmit}   >
-      <label >Form Clients:</label>
+      <label >Form Ingresos:</label>
       <input
         type="text"
-        name="nombres"
+        name="concepto"
         onChange={handleChange}
-        placeholder=" Nombres"
+        placeholder=" Concepto"
         autoFocus
       />
       <input
         type="text"
-        name="dni"
+        name="monto"
         onChange={handleChange}
-        placeholder="No Identificacion"
+        placeholder="Monto"
         autoFocus
       />
 
 <input
-        type="text"
-        name="telefono"
+        type="date"
+        name="fecha"
         onChange={handleChange}
-        placeholder="Telefono"
+       
         autoFocus
       />
       
@@ -59,4 +68,4 @@ const ClientsForm = () => {
   )
 }
 
-export default ClientsForm
+export default IngresosForm

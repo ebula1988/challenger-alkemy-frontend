@@ -29,7 +29,7 @@ const egresosSlice = createSlice ({
     
     reducers: { //funciones que van a cambiar el estado
       addEgreso: (state, action) =>{
-        console.log(state, action)
+        state.push(action.payload);
       }
 
 

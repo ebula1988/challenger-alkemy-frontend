@@ -29,7 +29,8 @@ const ingresosSlice = createSlice ({
     
     reducers: { //funciones que van a cambiar el estado
       addIngreso: (state, action) =>{
-        console.log(state, action)
+        state.push(action.payload);
+        
       }
 
 
